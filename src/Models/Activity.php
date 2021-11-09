@@ -41,6 +41,9 @@ class Activity extends Model implements ActivityContract
 
     public function causer(): MorphTo
     {
+        if (config('activitylog.subject_returns_soft_deleted_models')) {
+            return $this->morphTo()->withTrashed();
+        }
         return $this->morphTo();
     }
 
